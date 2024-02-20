@@ -1,0 +1,29 @@
+/* RoleManagement.css */
+.role-management {
+    text-align: center; /* Centering the buttons */
+    margin: 20px 0; /* Adding some margin around the button area */
+}
+
+.role-management button {
+    background-color: #4CAF50; /* Green background for buttons */
+    color: white; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px; /* Margin on left and right for spacing between buttons */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.role-management button:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+}
+
+.role-management .clear-btn {
+    background-color: #f44336; /* Red background for the Clear button */
+}
+
+.role-management .clear-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

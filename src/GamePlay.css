@@ -1,0 +1,64 @@
+.gameplay-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.player {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.eliminated {
+    opacity: 0.6;
+}
+.voting-buttons button, .elimination-methods button.eliminate-button {
+    padding: 5px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.voting-buttons button:hover, .elimination-methods button.eliminate-button:hover {
+    background-color: #ddd;
+}
+.voted, .elimination-methods button.eliminate-button.mafia {
+    background-color: #dc3545;
+    color: white;
+}
+.elimination-methods button.eliminate-button.vote-out {
+    background-color: #ffc107;
+    color: white;
+}
+.elimination-methods button.eliminate-button.assassin {
+    background-color: #28a745;
+    color: white;
+}
+.round-button, .setup-button {
+    margin-top: 15px;
+    padding: 5px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s;
+}
+.round-button:hover, .setup-button:hover {
+    background-color: #0056b3;
+}
+.voting-results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e2e3e5;
+    border-radius: 8px;
+}
+.player-counts {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e2e3e5;
+    border-radius: 8px;
+}

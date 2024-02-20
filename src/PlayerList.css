@@ -1,0 +1,31 @@
+
+/* PlayerList.css */
+.player-list {
+    list-style: none; /* Removes default list styling */
+    padding: 0;
+}
+
+.player-list li {
+    background-color: #f9f9f9; /* Light background for each list item */
+    border: 1px solid #e1e1e1; /* Light border for definition */
+    padding: 10px 15px;
+    margin-bottom: 10px; /* Spacing between list items */
+    border-radius: 4px; /* Rounded corners for list items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-list button {
+    background-color: #ff4d4f; /* Red background for delete button */
+    color: white; /* White text on delete button */
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.player-list button:hover {
+    background-color: #ff7875; /* Lighter red on hover */
+}
