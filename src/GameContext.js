@@ -5,9 +5,12 @@ import React, { createContext, useState } from 'react';
 export const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState([]); // Define players state
   const [currentRound, setCurrentRound] = useState(1); // Added state to track the current round
-  const [roles, setRoles] = useState([
+  const [roles, setRoles] = useState([ // Define roles state
+    'HeadMafia', 'Mafia', 'Block Mafia', 'Assassin', 'Bard', 'Doctor', 'Knight', 'Police', 'Revealer', 'Villager'
+  ]);
+  const [availableRoles, setAvailableRoles] = useState([
     'HeadMafia', 'Mafia', 'Block Mafia', 'Assassin', 'Bard', 'Doctor', 'Knight', 'Police', 'Revealer', 'Villager'
   ]);
   const [eliminations, setEliminations] = useState({});
@@ -19,25 +22,39 @@ export const GameProvider = ({ children }) => {
 
   const addPlayer = (player) => {
     setPlayers(prevPlayers => [...prevPlayers, player]);
+
+    // Remove the assigned role from availableRoles if it's not 'mafia' or 'villager'
+    if (player.role !== 'Mafia' && player.role !== 'Villager') {
+      setAvailableRoles(prevAvailableRoles =>
+          prevAvailableRoles.filter(role => role !== player.role)
+      );
+    }
   };
 
   const deletePlayer = (playerName) => {
+    const playerToDelete = players.find(player => player.name === playerName);
     setPlayers(prevPlayers => prevPlayers.filter(player => player.name !== playerName));
+
+    // Add the role back to availableRoles if it's not 'mafia' or 'villager'
+    if (playerToDelete && playerToDelete.role !== 'Mafia' && playerToDelete.role !== 'Villager') {
+      setAvailableRoles(prevAvailableRoles => [...prevAvailableRoles, playerToDelete.role]);
+    }
   };
 
   const shuffleRoles = () => {
-    let shuffledPlayers = [...players];
+    // Extract the current roles assigned to players
     let assignedRoles = players.map(player => player.role);
 
+    // Shuffle the assignedRoles array
     for (let i = assignedRoles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [assignedRoles[i], assignedRoles[j]] = [assignedRoles[j], assignedRoles[i]];
     }
 
-    shuffledPlayers = shuffledPlayers.map((player, index) => ({
-      ...player,
-      role: assignedRoles[index]
-    }));
+    // Assign the shuffled roles back to the players
+    const shuffledPlayers = players.map((player, index) => {
+      return { ...player, role: assignedRoles[index] };
+    });
 
     setPlayers(shuffledPlayers);
   };
@@ -47,6 +64,8 @@ export const GameProvider = ({ children }) => {
     setEliminations({});
     setVoteCounts({});
     setCurrentRound(1); // Reset the round when clearing all
+    // Reset availableRoles to the full list of roles
+    setAvailableRoles([...roles]);
   };
 
   const addRole = (newRole) => {
@@ -57,7 +76,7 @@ export const GameProvider = ({ children }) => {
 
   const eliminatePlayer = (playerName, method) => {
     setPlayers(prevPlayers => prevPlayers.map(player =>
-      player.name === playerName ? { ...player, eliminated: true, eliminationMethod: method, eliminationRound: currentRound } : player
+        player.name === playerName ? { ...player, eliminated: true, eliminationMethod: method, eliminationRound: currentRound } : player
     ));
   };
 
@@ -80,12 +99,12 @@ export const GameProvider = ({ children }) => {
   };
 
   return (
-    <GameContext.Provider value={{
-      players, roles, addPlayer, deletePlayer, shuffleRoles, clearAll, addRole,
-      eliminations, eliminatePlayer, voteCounts, recordVote, resetVotes, 
-      currentRound, setCurrentRound // Expose the currentRound and its setter
-    }}>
-      {children}
-    </GameContext.Provider>
+      <GameContext.Provider value={{
+        players, roles :availableRoles, addPlayer, deletePlayer, shuffleRoles, clearAll, addRole,
+        eliminations, eliminatePlayer, voteCounts, recordVote, resetVotes,
+        currentRound, setCurrentRound,setPlayers,setAvailableRoles // Expose the currentRound and its setter
+      }}>
+        {children}
+      </GameContext.Provider>
   );
 };

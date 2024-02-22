@@ -9,7 +9,7 @@ const RoleManagement = () => {
 
   return (
     <div className="role-management">
-      <button className={shuffleRoles}>Shuffle Roles</button>
+        <button onClick={shuffleRoles}>Shuffle Roles</button>
       <button className="clear-btn"  onClick={clearAll}>Clear All</button>
     </div>
   );
